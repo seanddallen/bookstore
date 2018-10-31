@@ -11,7 +11,7 @@ class BookCart extends Component{
     let totalPrice = 0;
     let ItemsInCart = this.props.cartItems.map(book => {
       totalPrice += book.price
-      return <CartItem key={book.id} book={book} />
+      return <CartItem key={book.id} removeBook={this.props.onClick} book={book} />
     })
 
 

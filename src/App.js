@@ -14,7 +14,19 @@ class App extends Component {
   componentDidMount(){
     fetch('http://localhost:8082/api/books')
       .then(res => res.json())
-      .then(books => this.setState({books, booksInCart: books.filter(book => book.id % 3 == 0)}))
+      .then(books => this.setState({books}))
+  }
+
+  handleAddClick = (book) => {
+    this.setState({
+      booksInCart: [...this.state.booksInCart, book]
+    })
+  }
+
+  handleRemoveClick = (book) => {
+    this.setState({
+      booksInCart: [...this.state.booksInCart.filter(item => item.id !== book.id)]
+    })
   }
 
   render() {
@@ -27,11 +39,11 @@ class App extends Component {
             <main className="flex">
 
               <div id="main">
-                <BookList search={this.state.search} books={this.state.books}/>
+                <BookList search={this.state.search} books={this.state.books} onClick={this.handleAddClick}/>
               </div>
 
               <div id="aside">
-                <BookCart cartItems={this.state.booksInCart}/>
+                <BookCart cartItems={this.state.booksInCart} onClick={this.handleRemoveClick}/>
               </div>
 
             </main>

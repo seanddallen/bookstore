@@ -16,7 +16,7 @@ const Book = (props) => {
             <b>Price:</b> ${props.book.price}
           </div>
         </div>
-        <button className="btn btn-large btn-primary add-btn">
+        <button className="btn btn-large btn-primary add-btn" onClick={()=>props.addBook(props.book)}>
           Add to Cart
         </button>
       </div>

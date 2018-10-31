@@ -11,7 +11,7 @@ const CartItem = (props) => {
         <div>
           ${props.book.price}
         </div>
-        <button className="btn btn-danger">
+        <button className="btn btn-danger" onClick={()=>props.removeBook(props.book)}>
           Remove
         </button>
       </div>
