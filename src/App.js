@@ -1,27 +1,43 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Header from './components/Header'
+import BookList from './components/BookList'
+import BookCart from './components/BookCart'
 import './App.css';
 
 class App extends Component {
+
+  state = {
+    books: [],
+    booksInCart: [],
+  }
+
+  componentDidMount(){
+    fetch('http://localhost:8082/api/books')
+      .then(res => res.json())
+      .then(books => this.setState({books, booksInCart: books.filter(book => book.id % 3 == 0)}))
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+          <div className="container">
+            <header>
+              <Header />
+            </header>
+            <main className="flex">
+
+              <div id="main">
+                <BookList search={this.state.search} books={this.state.books}/>
+              </div>
+
+              <div id="aside">
+                <BookCart cartItems={this.state.booksInCart}/>
+              </div>
+
+            </main>
+          </div>
       </div>
-    );
+    )
   }
 }
 
